@@ -66,14 +66,10 @@ $logs  = db_query("SELECT * FROM email_logs $where ORDER BY sent_at DESC LIMIT $
     </table>
   </div>
   <?php if ($pages > 1): ?>
-  <div class="pagination">
-    <?php
-    $base = "index.php?page=email_logs" . ($q ? "&q=" . urlencode($q) : '') . ($status ? "&status=" . urlencode($status) : '');
-    for ($i = 1; $i <= $pages; $i++):
-    ?>
-      <a href="<?= $base ?>&p=<?= $i ?>" class="page-btn <?= $i === $pg ? 'active' : '' ?>"><?= $i ?></a>
-    <?php endfor; ?>
-  </div>
+  <?php
+    $base_url = "index.php?page=email_logs" . ($q ? "&q=" . urlencode($q) : '') . ($status ? "&status=" . urlencode($status) : '');
+    echo render_pagination($pg, $pages, $base_url);
+  ?>
   <?php endif; ?>
 </div>
 

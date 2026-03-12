@@ -358,37 +358,10 @@ $prefill_event = (int)($_GET['event_id'] ?? 0);
   </div>
 
   <?php if ($total_pages > 1): ?>
-  <div class="pagination">
-    <?php if ($current_page > 1): ?>
-        <a href="index.php?page=forms&p=<?= $current_page - 1 ?>" class="page-btn"><i class="bi bi-chevron-left"></i></a>
-    <?php else: ?>
-        <span class="page-btn" style="opacity:0.5;cursor:not-allowed;"><i class="bi bi-chevron-left"></i></span>
-    <?php endif; ?>
-
     <?php
-    $links = [];
-    $window = 1;
-    for ($i = 1; $i <= $total_pages; $i++) {
-        if ($i == 1 || $i == $total_pages || ($i >= $current_page - $window && $i <= $current_page + $window)) {
-            $links[$i] = $i;
-        }
-    }
-    $last = 0;
-    foreach ($links as $k => $v) {
-        if ($k > $last + 1) {
-            echo '<span class="page-btn" style="border:none;background:none;">...</span>';
-        }
-        echo "<a href='index.php?page=forms&p=$v' class='page-btn " . ($v == $current_page ? 'active' : '') . "'>$v</a>";
-        $last = $k;
-    }
+      $base_url = "index.php?page=forms";
+      echo render_pagination($current_page, $total_pages, $base_url);
     ?>
-
-    <?php if ($current_page < $total_pages): ?>
-        <a href="index.php?page=forms&p=<?= $current_page + 1 ?>" class="page-btn"><i class="bi bi-chevron-right"></i></a>
-    <?php else: ?>
-        <span class="page-btn" style="opacity:0.5;cursor:not-allowed;"><i class="bi bi-chevron-right"></i></span>
-    <?php endif; ?>
-  </div>
   <?php endif; ?>
 </div>
 

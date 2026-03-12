@@ -184,13 +184,9 @@ if (isset($_GET['export'])) {
 
   <!-- Pagination -->
   <?php if ($pages > 1): ?>
-  <div class="pagination">
-    <?php
-    $base = "index.php?page=attendees" . ($q?"&q=".urlencode($q):'') . ($eid?"&event_id=$eid":'') . ($status?"&status=$status":'');
-    for ($i=1;$i<=$pages;$i++):
-    ?>
-      <a href="<?= $base ?>&p=<?= $i ?>" class="page-btn <?= $i===$page?'active':'' ?>"><?= $i ?></a>
-    <?php endfor; ?>
-  </div>
+  <?php
+    $base_url = "index.php?page=attendees" . ($q?"&q=".urlencode($q):'') . ($eid?"&event_id=$eid":'') . ($status?"&status=$status":'');
+    echo render_pagination($page, $pages, $base_url);
+  ?>
   <?php endif; ?>
 </div>

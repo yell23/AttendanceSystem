@@ -93,13 +93,9 @@ if (isset($_GET['export'])) {
     </table>
   </div>
   <?php if ($pages > 1): ?>
-  <div class="pagination">
-    <?php
-    $base = "index.php?page=logs" . ($q?"&q=".urlencode($q):'') . ($type?"&type=".urlencode($type):'');
-    for ($i=1;$i<=$pages;$i++):
-    ?>
-      <a href="<?= $base ?>&p=<?= $i ?>" class="page-btn <?= $i===$pg?'active':'' ?>"><?= $i ?></a>
-    <?php endfor; ?>
-  </div>
+  <?php
+    $base_url = "index.php?page=logs" . ($q?"&q=".urlencode($q):'') . ($type?"&type=".urlencode($type):'');
+    echo render_pagination($pg, $pages, $base_url);
+  ?>
   <?php endif; ?>
 </div>

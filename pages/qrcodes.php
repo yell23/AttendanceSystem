@@ -142,19 +142,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $events = db_query("SELECT id, name FROM events ORDER BY event_date DESC");
 
 // Get event_id from URL to filter the log
-$filter_event_id = (int)($_GET['event_id'] ?? 0);
+$filter_event_id = (int) ($_GET['event_id'] ?? 0);
+$pg   = max(1, (int)($_GET['p'] ?? 1));
+$per  = 20; // Items per page
+$off  = ($pg - 1) * $per;
 
-$qr_logs_sql = "SELECT a.*, e.name as event_name FROM attendees a
-  JOIN events e ON e.id = a.event_id";
-$qr_logs_params = [];
+$where_sql = "";
+$params = [];
 
 if ($filter_event_id) {
-    $qr_logs_sql .= " WHERE a.event_id = ?";
-    $qr_logs_params[] = $filter_event_id;
+    $where_sql = " WHERE a.event_id = ?";
+    $params[] = $filter_event_id;
 }
 
-$qr_logs_sql .= " ORDER BY a.registration_at DESC LIMIT 50";
-$qr_logs = db_query($qr_logs_sql, $qr_logs_params);
+$total = db_count("SELECT COUNT(*) FROM attendees a" . $where_sql, $params);
+$pages = (int)ceil($total / $per);
+
+$qr_logs = db_query("SELECT a.*, e.name as event_name FROM attendees a JOIN events e ON e.id = a.event_id {$where_sql} ORDER BY a.registration_at DESC LIMIT $per OFFSET $off", $params);
 
 $prefill = null;
 if (isset($_GET['prefill_id'])) {
@@ -228,7 +232,7 @@ if (isset($_GET['prefill_id'])) {
 <!-- QR Log -->
 <div class="card">
   <div class="card-header">
-    <span><i class="bi bi-list-ul"></i></span><div class="card-title">Generated QR Codes (<?= count($qr_logs) ?>)</div>
+    <span><i class="bi bi-list-ul"></i></span><div class="card-title">Generated QR Codes (<?= number_format($total) ?>)</div>
     <?php if ($filter_event_id): ?>
       <button class="btn btn-primary btn-sm" style="margin-left:auto;margin-right:10px;" onclick="sendToAllPending(<?= $filter_event_id ?>)"><i class="bi bi-envelope"></i> Send to All Pending</button>
       <a href="index.php?page=qrcodes" class="btn btn-ghost btn-sm"><i class="bi bi-x"></i> Clear Filter</a>
@@ -287,4 +291,10 @@ if (isset($_GET['prefill_id'])) {
       </tbody>
     </table>
   </div>
+  <?php if ($pages > 1): ?>
+    <?php
+      $base_url = "index.php?page=qrcodes" . ($filter_event_id ? "&event_id=" . $filter_event_id : '');
+      echo render_pagination($pg, $pages, $base_url);
+    ?>
+  <?php endif; ?>
 </div>

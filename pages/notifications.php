@@ -98,13 +98,6 @@ $logs  = db_query("SELECT * FROM audit_logs ORDER BY created_at DESC LIMIT $per 
     <?php endif; ?>
   </div>
     <?php if ($pages > 1): ?>
-    <div class="pagination">
-        <?php
-        $base = "index.php?page=notifications";
-        for ($i=1; $i<=$pages; $i++):
-            ?>
-          <a href="<?= $base ?>&p=<?= $i ?>" class="page-btn <?= $i===$pg?'active':'' ?>"><?= $i ?></a>
-        <?php endfor; ?>
-    </div>
+      <?= render_pagination($pg, $pages, "index.php?page=notifications") ?>
     <?php endif; ?>
 </div>

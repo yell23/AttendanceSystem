@@ -361,8 +361,8 @@ function render_pagination($current_page, $total_pages, $base_url) {
 
     // Previous button
     $html .= $current_page > 1
-        ? '<a href="' . $base_url . '&p=' . ($current_page - 1) . '" class="page-btn"><i class="bi bi-chevron-left"></i></a>'
-        : '<span class="page-btn" style="opacity:0.5;cursor:not-allowed;"><i class="bi bi-chevron-left"></i></span>';
+        ? '<a href="' . $base_url . '&p=' . ($current_page - 1) . '" class="page-btn"><i class="bi bi-chevron-left"></i> Previous</a>'
+        : '<span class="page-btn" style="opacity:0.5;cursor:not-allowed;"><i class="bi bi-chevron-left"></i> Previous</span>';
 
     // Page numbers with ellipsis
     $links = []; $window = 1;
@@ -379,8 +379,8 @@ function render_pagination($current_page, $total_pages, $base_url) {
 
     // Next button
     $html .= $current_page < $total_pages
-        ? '<a href="' . $base_url . '&p=' . ($current_page + 1) . '" class="page-btn"><i class="bi bi-chevron-right"></i></a>'
-        : '<span class="page-btn" style="opacity:0.5;cursor:not-allowed;"><i class="bi bi-chevron-right"></i></span>';
+        ? '<a href="' . $base_url . '&p=' . ($current_page + 1) . '" class="page-btn">Next <i class="bi bi-chevron-right"></i></a>'
+        : '<span class="page-btn" style="opacity:0.5;cursor:not-allowed;">Next <i class="bi bi-chevron-right"></i></span>';
 
     return $html . '</div>';
 }
