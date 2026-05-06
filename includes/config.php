@@ -264,6 +264,16 @@ function send_email($to, $subject, $body, $alt_body = '', $attachment = null) {
         $mail->setLanguage('en'); // Use English for more detailed error messages
         $mail->CharSet = PHPMailer::CHARSET_UTF8; // Use UTF-8 encoding
 
+        // Embed logos
+        $ub_logo_path = BASE_PATH . '/[full-color]-UB-Master-Logo.png';
+        if (file_exists($ub_logo_path)) {
+            $mail->addEmbeddedImage($ub_logo_path, 'ub_logo');
+        }
+        $anniversary_logo_path = BASE_PATH . '/80th logo.png';
+        if (file_exists($anniversary_logo_path)) {
+            $mail->addEmbeddedImage($anniversary_logo_path, '80th_logo');
+        }
+
         // For deep debugging, uncomment the following line to see the full SMTP transaction.
         // $mail->SMTPDebug = SMTP::DEBUG_SERVER;
 
@@ -409,18 +419,27 @@ function create_email_template($content, $title = 'InnovEd 2026') {
         :root { color-scheme: dark; }
     </style>
 </head>
-<body style="margin: 0; padding: 0; background-color: #111533; font-family: 'Poppins', sans-serif;">
+<body style="margin: 0; padding: 0; background-color: #862334; font-family: 'Poppins', sans-serif; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;">
     <table border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
             <td style="padding: 20px 10px;">
-                <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; border-collapse: collapse; background-color: #1c2554; border-radius: 16px; border: 1px solid #25326f; overflow: hidden;">
+                <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; border-collapse: collapse; background-color: #FFFFFF; border-radius: 16px; border: 1px solid #eeeeee; overflow: hidden;">
                     <tr>
-                        <td align="center" style="padding: 30px 20px; border-bottom: 1px solid #25326f;">
-                            <h1 style="margin: 0; font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 28px; color: #f0f8ff; letter-spacing: -0.5px;">Innov<span style="color: #ffc107;">ED</span> 2026</h1><h2 style="margin: 10px 0 0; font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 16px; color: rgb(255, 255, 255); letter-spacing: 0px;">Transforming the Education Landscape through EdTech and AI</h2>
+                        <td style="padding: 30px 20px; border-bottom: 1px solid #eeeeee; background-color: #FFFFFF;">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                    <td width="50%" align="left" valign="middle">
+                                        <img src="cid:80th_logo" alt="80th Anniversary Logo" style="max-width: 150px; height: auto; display: block;">
+                                    </td>
+                                    <td width="50%" align="right" valign="middle">
+                                        <img src="cid:ub_logo" alt="University of Batangas Logo" style="max-width: 250px; height: auto; display: block;">
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
-                    <tr><td style="padding: 35px 30px; color: #f0f8ff; font-size: 16px; line-height: 1.6;">$content</td></tr>
-                    <tr><td style="padding: 30px; text-align: center; font-size: 12px; color: rgba(240, 248, 255, 0.6); border-top: 1px solid #25326f;"><p style="margin: 0;">&copy; $year innovEd 2026. All rights reserved.</p><p style="margin: 5px 0 0;">This is an automated message. Please do not reply.</p></td></tr>
+                    <tr><td style="padding: 35px 30px; color: #333333; font-size: 16px; line-height: 1.6;">$content</td></tr>
+                    <tr><td style="padding: 30px; text-align: center; font-size: 12px; color: #666666; border-top: 1px solid #eeeeee;"><p style="margin: 0;">&copy; $year University of Batangas. All rights reserved.</p><p style="margin: 5px 0 0;">This is an automated message. Please do not reply.</p></td></tr>
                 </table>
             </td>
         </tr>
@@ -486,16 +505,16 @@ function send_qr_code_email(array $attendee, array $event)
         }
 
         $content_html = "
-            <h2 style='text-align: center; color: #ffc107; font-size: 24px; font-weight: bold; margin-top: 5px; margin-bottom: 20px;'>Your Registration is Approved!</h2>
+            <h2 style='text-align: center; color: #cc7b00; font-size: 26px; font-weight: bold; margin-top: 5px; margin-bottom: 20px;'>Your Registration is Approved!</h2>
             <p style='margin-top:0;'>Hi " . htmlspecialchars($attendee['full_name']) . ",</p>
-            <p>We are pleased to inform you that your registration for the INNOVED 2026 has been officially approved. We are excited to have you join us.</p>
+            <p>We are pleased to inform you that your registration for the ATTENDACE has been officially approved. We are excited to have you join us.</p>
             <div style='padding: 15px; background-color: rgba(255,255,255,0.05); border-radius: 10px; margin: 20px 0; border: 1px solid rgba(255,255,255,0.1);'>
-                <h3 style='margin-top:0; margin-bottom: 12px; color: #ffc107;'>Event Details:</h3>
+                <h3 style='margin-top:0; margin-bottom: 12px; color: #cc7b00;'>Event Details:</h3>
                 <p style='margin: 5px 0;'><strong>Date & Time:</strong> " . ($event_datetime_str ?: 'To be announced') . "</p>
                 <p style='margin: 5px 0;'><strong>Venue:</strong> " . $event_venue . "</p>
                 <p style='margin: 5px 0;'><strong>QR Code ID:</strong> " . (htmlspecialchars($attendee['qr_code_id'] ?? 'N/A')) . "</p>
             </div>
-            <p style='font-size: 16px; color: #f0f8ff; border-left: 3px solid #ffc107; padding-left: 15px; margin-top: 20px;'>
+            <p style='font-size: 16px; color: #000000; border-left: 3px solid #ffc107; padding-left: 15px; margin-top: 20px;'>
                 Kindly keep this email, or download or take a screenshot of the attached QR code, which will be required for attendance verification and event entry.
             </p>
             <p>We look forward to seeing you there!</p>

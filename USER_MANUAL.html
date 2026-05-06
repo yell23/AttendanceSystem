@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>AttendQR System - User Manual</title>
+    <style>
+        body {
+            font-family: 'Calibri', 'Arial', sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+        }
+        h1 {
+            color: #0066cc;
+            border-bottom: 3px solid #0066cc;
+            padding-bottom: 10px;
+            font-size: 28px;
+        }
+        h2 {
+            color: #0066cc;
+            border-left: 4px solid #0066cc;
+            padding-left: 10px;
+            margin-top: 30px;
+            font-size: 20px;
+        }
+        h3 {
+            color: #004499;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        h4 {
+            color: #333;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .table-of-contents {
+            background-color: #f0f0f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .table-of-contents ol {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .table-of-contents li {
+            margin: 5px 0;
+        }
+        .intro-box {
+            background-color: #e6f2ff;
+            padding: 15px;
+            border-left: 4px solid #0066cc;
+            margin: 20px 0;
+            border-radius: 3px;
+        }
+        .features-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .features-list li {
+            margin: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        .features-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #0066cc;
+            font-weight: bold;
+        }
+        .warning {
+            background-color: #fff3cd;
+            border-left: 4px solid #ff9800;
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 3px;
+        }
+        .tip {
+            background-color: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 3px;
+        }
+        .error {
+            background-color: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 3px;
+        }
+        ol, ul {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+        li {
+            margin: 8px 0;
+        }
+        code {
+            background-color: #f5f5f5;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 15px 0;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        table th {
+            background-color: #0066cc;
+            color: white;
+        }
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        hr {
+            margin: 30px 0;
+            border: none;
+            border-top: 1px solid #ddd;
+        }
+        .footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+        }
+        strong {
+            color: #004499;
+        }
+        .section-break {
+            page-break-after: always;
+        }
+    </style>
+</head>
+<body>
+
+<h1>AttendQR System - User Manual</h1>
+
+<div class="table-of-contents">
+    <h3>Table of Contents</h3>
+    <ol>
+        <li>Introduction</li>
+        <li>Getting Started</li>
+        <li>Dashboard Overview</li>
+        <li>Core Features
+            <ol>
+                <li>Events Management</li>
+                <li>QR Code Generation</li>
+                <li>QR Code Scanner</li>
+                <li>Attendees Management</li>
+                <li>Google Forms Integration</li>
+            </ol>
+        </li>
+        <li>Reports & Analytics</li>
+        <li>Settings & Configuration</li>
+        <li>Frequently Asked Questions</li>
+        <li>Troubleshooting</li>
+        <li>Best Practices</li>
+    </ol>
+</div>
+
+<h2>Introduction</h2>
+
+<div class="intro-box">
+    <p><strong>AttendQR</strong> is a powerful QR Code-based attendance tracking system designed to streamline event management and attendee registration. It combines QR code technology with Google Forms integration to provide a seamless, modern attendance solution.</p>
+</div>
+
+<h3>Key Features</h3>
+<ul class="features-list">
+    <li>QR Code Generation - Automatically generate unique QR codes for each event</li>
+    <li>Real-time Scanning - Scan QR codes using any device with a camera</li>
+    <li>Event Management - Create, edit, and manage events effortlessly</li>
+    <li>Google Forms Integration - Embed and manage Google Forms for registration</li>
+    <li>Attendee Tracking - Maintain detailed records of attendees and attendance</li>
+    <li>Analytics & Reports - Generate comprehensive reports with visual analytics</li>
+    <li>Secure Authentication - User login with role-based access control</li>
+    <li>Audit Logs - Complete activity tracking for compliance and transparency</li>
+</ul>
+
+<hr>
+
+<h2>Getting Started</h2>
+
+<h3>System Requirements</h3>
+<ul>
+    <li><strong>Web Browser:</strong> Chrome, Firefox, Safari, or Edge (latest versions recommended)</li>
+    <li><strong>Camera:</strong> For QR code scanning functionality</li>
+    <li><strong>Internet Connection:</strong> Required for Google Forms integration</li>
+    <li><strong>JavaScript:</strong> Must be enabled in your browser</li>
+</ul>
+
+<h3>Initial Login</h3>
+<ol>
+    <li>Open your web browser and navigate to your AttendQR installation</li>
+    <li>Enter your login credentials:
+        <ul>
+            <li><strong>Email:</strong> Your registered email address</li>
+            <li><strong>Password:</strong> Your password</li>
+        </ul>
+    </li>
+    <li>Click <strong>Login</strong></li>
+    <li>You will be redirected to the Dashboard</li>
+</ol>
+
+<div class="warning">
+    <strong>🔒 Security Tip:</strong> Change your default password immediately after first login.
+</div>
+
+<h3>Changing Your Password</h3>
+<ol>
+    <li>Go to <strong>Settings</strong> in the main menu</li>
+    <li>Navigate to the <strong>Password</strong> section</li>
+    <li>Enter your current password</li>
+    <li>Enter your new password twice for confirmation</li>
+    <li>Click <strong>Update Password</strong></li>
+</ol>
+
+<hr>
+
+<h2>Dashboard Overview</h2>
+
+<p>The Dashboard is your main hub for monitoring system activity and quick access to key features.</p>
+
+<h3>Dashboard Components</h3>
+
+<h4>1. Key Statistics</h4>
+<ul>
+    <li>Total Events Created</li>
+    <li>Total Attendees Registered</li>
+    <li>Today's Check-ins</li>
+    <li>Pending Notifications</li>
+</ul>
+
+<h4>2. Quick Action Buttons</h4>
+<ul>
+    <li><strong>Create New Event</strong> - Quickly create a new event</li>
+    <li><strong>Generate QR Codes</strong> - Jump to QR code generation</li>
+    <li><strong>Open Scanner</strong> - Start scanning attendance</li>
+    <li><strong>View Reports</strong> - Access analytics and reports</li>
+</ul>
+
+<h4>3. Recent Activity Feed</h4>
+<ul>
+    <li>Lists recent check-ins</li>
+    <li>Shows upcoming events</li>
+    <li>Displays system notifications</li>
+</ul>
+
+<h4>4. Charts & Visualizations</h4>
+<ul>
+    <li>Attendance trends over time</li>
+    <li>Events vs. Attendees comparison</li>
+    <li>Daily check-in statistics</li>
+</ul>
+
+<h3>Navigation Menu</h3>
+
+<p>The left sidebar provides easy access to all main features:</p>
+
+<ul>
+    <li><strong>Dashboard</strong> - Main overview page</li>
+    <li><strong>Events</strong> - Create and manage events</li>
+    <li><strong>QR Codes</strong> - Generate QR codes for events</li>
+    <li><strong>Scanner</strong> - Real-time attendance scanning</li>
+    <li><strong>Attendees</strong> - View and manage attendee records</li>
+    <li><strong>Forms</strong> - Manage Google Forms integration</li>
+    <li><strong>Reports</strong> - View analytics and generate reports</li>
+    <li><strong>Logs</strong> - View system activity logs</li>
+    <li><strong>Settings</strong> - Configure system preferences</li>
+    <li><strong>Notifications</strong> - View system messages</li>
+</ul>
+
+<hr>
+
+<h2>Core Features</h2>
+
+<h3>Events Management</h3>
+
+<p>Events are the foundation of the AttendQR system. Each event can have multiple attendees and associated QR codes.</p>
+
+<h4>Creating a New Event</h4>
+<ol>
+    <li>Click <strong>Events</strong> in the sidebar</li>
+    <li>Click <strong>+ Create New Event</strong> button</li>
+    <li>Fill in the following details:
+        <ul>
+            <li><strong>Event Name</strong> - Name of the event (required)</li>
+            <li><strong>Description</strong> - Event details and description (optional)</li>
+            <li><strong>Date</strong> - Event date (required)</li>
+            <li><strong>Time</strong> - Event start time (required)</li>
+            <li><strong>Location</strong> - Physical or virtual location (optional)</li>
+            <li><strong>Capacity</strong> - Maximum number of attendees (optional)</li>
+            <li><strong>Status</strong> - Active/Inactive</li>
+        </ul>
+    </li>
+    <li>Click <strong>Create Event</strong></li>
+</ol>
+
+<h4>Editing an Event</h4>
+<ol>
+    <li>Go to <strong>Events</strong></li>
+    <li>Find your event in the list</li>
+    <li>Click the <strong>Edit</strong> button (pencil icon)</li>
+    <li>Update the necessary information</li>
+    <li>Click <strong>Save Changes</strong></li>
+</ol>
+
+<h4>Deleting an Event</h4>
+<ol>
+    <li>Go to <strong>Events</strong></li>
+    <li>Find your event in the list</li>
+    <li>Click the <strong>Delete</strong> button (trash icon)</li>
+    <li>Confirm the deletion</li>
+</ol>
+
+<div class="error">
+    <strong>⚠️ Warning:</strong> Deleting an event will also delete all associated QR codes and attendance records.
+</div>
+
+<h3>QR Code Generation</h3>
+
+<p>QR codes are unique identifiers that attendees scan to mark their attendance.</p>
+
+<h4>Generating QR Codes</h4>
+<ol>
+    <li>Navigate to <strong>QR Codes</strong> in the sidebar</li>
+    <li>Click <strong>+ Generate QR Codes</strong></li>
+    <li>Select the event from the dropdown menu</li>
+    <li>Choose the number of QR codes to generate</li>
+    <li>(Optional) Customize:
+        <ul>
+            <li>QR code size</li>
+            <li>Error correction level</li>
+            <li>File format (PNG, JPEG, SVG)</li>
+        </ul>
+    </li>
+    <li>Click <strong>Generate</strong></li>
+</ol>
+
+<h4>Printing QR Codes</h4>
+<ol>
+    <li>After generating, click <strong>Print</strong> button</li>
+    <li>Configure print settings in your browser's print dialog</li>
+    <li>Arrange QR codes per page (recommended: 6-9 codes per page)</li>
+    <li>Print to PDF or physical printer</li>
+    <li>Cut and distribute to attendees</li>
+</ol>
+
+<h3>QR Code Scanner</h3>
+
+<p>The scanner is used during events to mark attendee check-ins in real-time.</p>
+
+<h4>Accessing the Scanner</h4>
+<ol>
+    <li>Click <strong>Scanner</strong> in the sidebar</li>
+    <li>Grant camera access when prompted</li>
+    <li>The camera feed will appear</li>
+</ol>
+
+<h4>Scanning Process</h4>
+<ol>
+    <li><strong>Select Event</strong> - Choose the event from the dropdown</li>
+    <li><strong>Position Camera</strong> - Point at the QR code</li>
+    <li><strong>Automatic Detection</strong> - The system automatically detects and scans</li>
+    <li><strong>Confirmation</strong> - A success message appears when code is scanned</li>
+    <li><strong>Continue Scanning</strong> - The scanner is ready for the next code</li>
+</ol>
+
+<div class="tip">
+    <strong>💡 Scanner Tips:</strong> Ensure good lighting conditions, keep QR codes at a reasonable distance (10-30cm from camera), and test scanner on a few codes before the event.
+</div>
+
+<h3>Attendees Management</h3>
+
+<p>Manage and track all event attendees and their attendance records.</p>
+
+<h4>Adding Attendees Manually</h4>
+<ol>
+    <li>Go to <strong>Attendees</strong></li>
+    <li>Click <strong>+ Add Attendee</strong> button</li>
+    <li>Fill in:
+        <ul>
+            <li><strong>First Name</strong> (required)</li>
+            <li><strong>Last Name</strong> (required)</li>
+            <li><strong>Email</strong> (required)</li>
+            <li><strong>Event</strong> (required)</li>
+            <li><strong>Special Notes</strong> (optional)</li>
+        </ul>
+    </li>
+    <li>Click <strong>Add Attendee</strong></li>
+</ol>
+
+<h4>Exporting Attendee Data</h4>
+<ol>
+    <li>Go to <strong>Attendees</strong></li>
+    <li>Click <strong>Export</strong> button</li>
+    <li>Choose format:
+        <ul>
+            <li>CSV (for Excel/Google Sheets)</li>
+            <li>PDF (for printing/archiving)</li>
+            <li>JSON (for data integration)</li>
+        </ul>
+    </li>
+    <li>File will download to your computer</li>
+</ol>
+
+<h3>Google Forms Integration</h3>
+
+<p>Embed and manage Google Forms for event registration and data collection.</p>
+
+<h4>Embedding a Google Form</h4>
+<ol>
+    <li>Go to <strong>Forms</strong> in the sidebar</li>
+    <li>Click <strong>+ Embed New Form</strong></li>
+    <li>Provide:
+        <ul>
+            <li><strong>Form Name</strong> - Name for reference</li>
+            <li><strong>Form URL</strong> - Your Google Form's shareable link</li>
+            <li><strong>Associated Event</strong> - Link to an event (optional)</li>
+        </ul>
+    </li>
+    <li>Click <strong>Embed Form</strong></li>
+</ol>
+
+<hr>
+
+<h2>Reports & Analytics</h2>
+
+<p>Generate comprehensive reports to analyze attendance patterns and event performance.</p>
+
+<h3>Accessing Reports</h3>
+<ol>
+    <li>Click <strong>Reports</strong> in the sidebar</li>
+    <li>Choose report type:
+        <ul>
+            <li><strong>Attendance Summary</strong> - Overall attendance statistics</li>
+            <li><strong>Event Analytics</strong> - Per-event analysis</li>
+            <li><strong>Attendee Analytics</strong> - Individual attendee tracking</li>
+            <li><strong>Daily Trends</strong> - Attendance over time</li>
+            <li><strong>Custom Report</strong> - Build your own report</li>
+        </ul>
+    </li>
+</ol>
+
+<h3>Exporting Reports</h3>
+<ol>
+    <li>Generate your report</li>
+    <li>Click <strong>Export</strong> button</li>
+    <li>Choose format:
+        <ul>
+            <li>PDF (formatted document)</li>
+            <li>CSV (spreadsheet format)</li>
+            <li>JSON (data format)</li>
+            <li>Excel (spreadsheet with formulas)</li>
+        </ul>
+    </li>
+    <li>File downloads automatically</li>
+</ol>
+
+<hr>
+
+<h2>Settings & Configuration</h2>
+
+<h3>Account Settings</h3>
+<ol>
+    <li>Click <strong>Settings</strong> in the sidebar</li>
+    <li>Click <strong>Account</strong> tab</li>
+    <li>Update your information:
+        <ul>
+            <li><strong>First Name</strong> - Your first name</li>
+            <li><strong>Last Name</strong> - Your last name</li>
+            <li><strong>Email</strong> - Your email address</li>
+            <li><strong>Phone</strong> - Contact number (optional)</li>
+        </ul>
+    </li>
+    <li>Click <strong>Save Profile</strong></li>
+</ol>
+
+<h3>System Preferences</h3>
+<ol>
+    <li>Go to <strong>Settings</strong></li>
+    <li>Click <strong>Preferences</strong> tab</li>
+    <li>Configure:
+        <ul>
+            <li><strong>System Name</strong> - Display name for your organization</li>
+            <li><strong>Time Zone</strong> - Select your time zone</li>
+            <li><strong>Date Format</strong> - Choose preferred date format</li>
+            <li><strong>Language</strong> - Select system language</li>
+        </ul>
+    </li>
+    <li>Click <strong>Save Preferences</strong></li>
+</ol>
+
+<hr>
+
+<h2>Frequently Asked Questions</h2>
+
+<h4>Q: How do I reset my password?</h4>
+<p><strong>A:</strong> Click "Forgot Password" on the login page, enter your email, and follow the link in the reset email. You'll receive a password reset link valid for 24 hours.</p>
+
+<h4>Q: Can I generate multiple QR codes for one event?</h4>
+<p><strong>A:</strong> Yes! Go to <strong>QR Codes</strong>, select your event, and specify the number of codes to generate. Each code is unique but links to the same event.</p>
+
+<h4>Q: Can I edit attendance after the event?</h4>
+<p><strong>A:</strong> Yes, go to <strong>Attendees</strong>, find the person, click their name, and click <strong>Edit Attendance</strong> to change their status or time.</p>
+
+<h4>Q: What's the maximum number of attendees per event?</h4>
+<p><strong>A:</strong> There's no technical limit, but performance may vary based on your server. Typically handles 10,000+ attendees per event.</p>
+
+<h4>Q: Can I import attendees from a spreadsheet?</h4>
+<p><strong>A:</strong> Yes, go to <strong>Attendees</strong>, click <strong>Import</strong>, upload your CSV file, and map the columns to match your data.</p>
+
+<h4>Q: Can QR codes be scanned with a regular smartphone?</h4>
+<p><strong>A:</strong> Yes, any smartphone with a camera can scan QR codes using the built-in camera app or QR scanner apps.</p>
+
+<hr>
+
+<h2>Troubleshooting</h2>
+
+<h3>Scanner Not Working</h3>
+
+<p><strong>Problem:</strong> Camera feed doesn't appear or scanner is non-responsive</p>
+
+<p><strong>Solutions:</strong></p>
+<ol>
+    <li>Check browser camera permissions (Settings → Site permissions → Camera)</li>
+    <li>Try a different browser (Chrome recommended)</li>
+    <li>Restart your browser</li>
+    <li>Clear browser cache (Settings → Clear browsing data)</li>
+    <li>Check your internet connection</li>
+    <li>Ensure QR code is not too far (10-30cm optimal)</li>
+</ol>
+
+<h3>QR Code Not Scanning</h3>
+
+<p><strong>Problem:</strong> Valid QR codes won't scan</p>
+
+<p><strong>Solutions:</strong></p>
+<ol>
+    <li>Ensure adequate lighting</li>
+    <li>Clean camera lens</li>
+    <li>Check code isn't damaged or faded</li>
+    <li>Verify code is high quality (100mm × 100mm minimum)</li>
+    <li>Move code closer or further from camera</li>
+    <li>Try rotating the device</li>
+</ol>
+
+<h3>Attendance Not Recording</h3>
+
+<p><strong>Problem:</strong> Scanned codes don't appear in attendance logs</p>
+
+<p><strong>Solutions:</strong></p>
+<ol>
+    <li>Verify the correct event is selected in scanner</li>
+    <li>Check internet connection</li>
+    <li>Refresh the page</li>
+    <li>Look in <strong>Attendees</strong> section to confirm</li>
+    <li>Check system logs for errors</li>
+    <li>Try manual entry as alternative</li>
+</ol>
+
+<h3>Can't Log In</h3>
+
+<p><strong>Problem:</strong> Login credentials not accepted</p>
+
+<p><strong>Solutions:</strong></p>
+<ol>
+    <li>Verify CAPS LOCK is off</li>
+    <li>Ensure you're using the correct email address</li>
+    <li>Try resetting your password</li>
+    <li>Clear browser cache and cookies</li>
+    <li>Try a different browser</li>
+    <li>Check your internet connection</li>
+</ol>
+
+<hr>
+
+<h2>Best Practices</h2>
+
+<h3>Event Planning</h3>
+<ul>
+    <li><strong>Plan Ahead</strong> - Create events 2-3 weeks in advance</li>
+    <li><strong>Generate QR Codes Early</strong> - Have codes ready 1 week before event</li>
+    <li><strong>Test Everything</strong> - Test scanner, forms, and reports before event</li>
+    <li><strong>Set Capacity</strong> - Define maximum attendees for event</li>
+    <li><strong>Create Backup</strong> - Have manual sign-in sheet as backup</li>
+</ul>
+
+<h3>During Event</h3>
+<ul>
+    <li><strong>Arrive Early</strong> - Set up scanner and forms before attendees arrive</li>
+    <li><strong>Test Scanner</strong> - Test with 5-10 codes before attendees arrive</li>
+    <li><strong>Have Backup</strong> - Keep manual entry form available</li>
+    <li><strong>Monitor Progress</strong> - Check real-time statistics during event</li>
+    <li><strong>Provide Support</strong> - Assist attendees with QR code scanning</li>
+</ul>
+
+<h3>After Event</h3>
+<ul>
+    <li><strong>Generate Reports</strong> - Create reports within 24 hours</li>
+    <li><strong>Export Data</strong> - Backup attendance and form responses</li>
+    <li><strong>Archive Records</strong> - Store in secure location for compliance</li>
+    <li><strong>Send Confirmations</strong> - Email attendees confirmation of attendance</li>
+    <li><strong>Analyze Trends</strong> - Review analytics for future improvements</li>
+</ul>
+
+<h3>Security & Compliance</h3>
+<ul>
+    <li><strong>Change Default Password</strong> - Immediately upon first login</li>
+    <li><strong>Regular Backups</strong> - Export data weekly</li>
+    <li><strong>Secure Access</strong> - Don't share login credentials</li>
+    <li><strong>Review Logs</strong> - Check audit logs monthly</li>
+    <li><strong>Update Contact Info</strong> - Keep email address current</li>
+    <li><strong>Comply with GDPR</strong> - Ensure data handling meets regulations</li>
+    <li><strong>Delete Old Data</strong> - Archive or delete data per retention policy</li>
+</ul>
+
+<h3>QR Code Best Practices</h3>
+<ul>
+    <li><strong>Size</strong> - Print at least 100mm × 100mm</li>
+    <li><strong>Contrast</strong> - Use black codes on white background</li>
+    <li><strong>Laminate</strong> - Protect from damage at events</li>
+    <li><strong>Test</strong> - Scan each code before distributing</li>
+    <li><strong>Keep Backups</strong> - Store digital copies</li>
+</ul>
+
+<hr>
+
+<div class="footer">
+    <p><strong>AttendQR System - User Manual</strong></p>
+    <p>Version 1.0 | Updated: April 2024</p>
+    <p>For support, contact your system administrator</p>
+</div>
+
+</body>
+</html>

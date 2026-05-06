@@ -1,14 +1,28 @@
 <?php
 // --- Step 1: Fetch all necessary data for the report cards and modals ---
+
+// Add event filter
+$filter_event_id = (int)($_GET['event_id'] ?? 0);
+$all_events_for_filter = db_query("SELECT id, name FROM events ORDER BY event_date DESC");
+
+// Add WHERE clause and params for attendee-based stats
+$where_attendees_sql = '';
+$attendee_params = [];
+if ($filter_event_id) {
+    $where_attendees_sql = " WHERE event_id = ?";
+    $attendee_params[] = $filter_event_id;
+}
+
 $stats = db_row("SELECT
   COUNT(*) as total_reg,
   SUM(checkin_status='checked_in') as total_checkin,
   SUM(checkin_status='pending')    as total_pending,
   SUM(email_sent=1)                as emails_sent
-  FROM attendees");
+  FROM attendees" . $where_attendees_sql, $attendee_params);
 
 $rate = $stats['total_reg'] > 0 ? round($stats['total_checkin']/$stats['total_reg']*100,1) : 0;
 
+// This summary table should always show all events, so it is not filtered.
 $event_stats = db_query("SELECT e.name,
   COUNT(a.id) as registrations,
   SUM(a.checkin_status='checked_in') as checked_in,
@@ -16,51 +30,78 @@ $event_stats = db_query("SELECT e.name,
   FROM events e LEFT JOIN attendees a ON a.event_id=e.id
   GROUP BY e.id,e.name ORDER BY e.event_date DESC");
 
+// Add WHERE clause for scan-based stats
+$where_scans_sql = '';
+$scan_params = [];
+if ($filter_event_id) {
+    $where_scans_sql = " WHERE event_id = ?";
+    $scan_params[] = $filter_event_id;
+}
+
 $scan_stats = db_row("SELECT COUNT(*) as total,
   SUM(scan_result IN ('checked_in', 'manual_lookup_checked_in')) as ok,
   SUM(scan_result IN ('already_checked_in', 'manual_lookup_duplicate')) as dup,
   SUM(scan_result IN ('invalid', 'not_registered', 'manual_lookup_not_found')) as invalid
-  FROM scan_logs");
+  FROM scan_logs" . $where_scans_sql, $scan_params);
 
 // New query to fetch details for the duplicate scans modal
-$duplicate_scans = db_query("
+$duplicate_scans_sql = "
     SELECT sl.scanned_at, sl.scan_result, a.full_name, a.email, e.name as event_name
     FROM scan_logs sl
     JOIN attendees a ON sl.attendee_id = a.id
     JOIN events e ON sl.event_id = e.id
     WHERE sl.scan_result IN ('already_checked_in', 'manual_lookup_duplicate')
-    ORDER BY sl.scanned_at DESC
-    LIMIT 50
-");
+";
+if ($filter_event_id) {
+    $duplicate_scans_sql .= " AND sl.event_id = ?";
+}
+$duplicate_scans_sql .= " ORDER BY sl.scanned_at DESC LIMIT 50";
+$duplicate_scans = db_query($duplicate_scans_sql, $filter_event_id ? [$filter_event_id] : []);
 
 // JS chart data
 $chart_labels = json_encode(array_column($event_stats,'name'));
 $chart_regs   = json_encode(array_map(function($e){ return (int)$e['registrations']; },$event_stats));
 $chart_checks = json_encode(array_map(function($e){ return (int)$e['checked_in']; },$event_stats));
 ?>
-<div class="page-hero"><h1>Analytics &amp; Reports</h1><p>Detailed insights across all events.</p></div>
+<div class="page-hero-row">
+    <div class="page-hero"><h1>Analytics &amp; Reports</h1><p>Detailed insights across all events.</p></div>
+    <div class="filter-bar">
+        <form method="GET" action="index.php">
+            <input type="hidden" name="page" value="reports">
+            <select name="event_id" class="form-select" onchange="this.form.submit()">
+                <option value="">All Events</option>
+                <?php foreach ($all_events_for_filter as $ev): ?>
+                    <option value="<?= $ev['id'] ?>" <?= $filter_event_id == $ev['id'] ? 'selected' : '' ?>><?= htmlspecialchars($ev['name']) ?></option>
+                <?php endforeach; ?>
+            </select>
+            <?php if ($filter_event_id): ?>
+                <a href="index.php?page=reports" class="btn btn-ghost btn-sm" title="Clear Filter"><i class="bi bi-x"></i> Clear</a>
+            <?php endif; ?>
+        </form>
+    </div>
+</div>
 
 <div class="grid-4">
   <div class="stat-card purple">
     <span class="stat-icon"><i class="bi bi-pie-chart"></i></span>
     <div class="stat-value"><?= $rate ?>%</div>
-    <div class="stat-label">Overall Attendance Rate</div>
+    <div class="stat-label">Attendance Rate<?= $filter_event_id ? ' (Filtered)' : '' ?></div>
   </div>
   <div class="stat-card green">
     <span class="stat-icon"><i class="bi bi-envelope"></i></span>
     <div class="stat-value"><?= number_format($stats['emails_sent']) ?></div>
-    <div class="stat-label">Emails Sent</div>
+    <div class="stat-label">Emails Sent<?= $filter_event_id ? ' (Filtered)' : '' ?></div>
   </div>
   <div class="stat-card orange">
     <span class="stat-icon"><i class="bi bi-qr-code"></i></span>
     <div class="stat-value"><?= number_format($stats['total_reg']) ?></div>
-    <div class="stat-label">QR Codes Generated</div>
+    <div class="stat-label">Registrations<?= $filter_event_id ? ' (Filtered)' : '' ?></div>
   </div>
   <!-- Step 2: Make the card clickable to open the modal -->
   <a href="javascript:void(0)" onclick="openModal('duplicate-scans-modal')" class="stat-card pink" style="text-decoration: none; color: inherit; cursor: pointer;">
     <span class="stat-icon"><i class="bi bi-exclamation-triangle"></i></span>
     <div class="stat-value"><?= (int)($scan_stats['dup']??0) ?></div>
-    <div class="stat-label">Duplicate Scan Attempts</div>
+    <div class="stat-label">Duplicate Scans<?= $filter_event_id ? ' (Filtered)' : '' ?></div>
     <div class="stat-change neutral" style="margin-top: 8px;">Click to view details</div>
   </a>
 </div>
