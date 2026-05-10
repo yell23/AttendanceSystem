@@ -59,7 +59,7 @@ $nav_items = [
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-logo">
     <div class="logo-icon"><i class="bi bi-clipboard-check"></i></div>
-    <div class="logo-text">Attend<span>QR</span></div>
+    <div class="logo-text">UB Attend<span>QR</span></div>
   </div>
 
   <nav class="nav-section">

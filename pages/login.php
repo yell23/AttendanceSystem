@@ -36,7 +36,7 @@ $flash_info    = flash('info');
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login — AttendQR</title>
+<title>Login — UB AttendQR</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <link rel="stylesheet" href="assets/css/style.css">
@@ -46,7 +46,7 @@ $flash_info    = flash('info');
   <div class="login-card">
     <div class="login-logo">
       <div class="logo-icon" style="box-shadow:0 0 30px var(--glow);"><i class="bi bi-clipboard-check"></i></div>
-      <h1>Attend<span style="color:var(--accent);">QR</span></h1>
+      <h1>UB Attend<span style="color:var(--accent);">QR</span></h1>
       <p>Event Attendance Registration System</p>
     </div>
 

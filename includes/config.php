@@ -21,7 +21,7 @@ if (class_exists(Dotenv::class) && file_exists(BASE_PATH . '/.env')) {
     $dotenv->load();
 }
 
-define('APP_NAME',    'AttendQR');
+define('APP_NAME',    ' UB AttendQR');
 define('APP_VERSION', '1.0');
 define('BASE_URL',    '');  // e.g. http://localhost/attendqr
 
@@ -507,7 +507,7 @@ function send_qr_code_email(array $attendee, array $event)
         $content_html = "
             <h2 style='text-align: center; color: #cc7b00; font-size: 26px; font-weight: bold; margin-top: 5px; margin-bottom: 20px;'>Your Registration is Approved!</h2>
             <p style='margin-top:0;'>Hi " . htmlspecialchars($attendee['full_name']) . ",</p>
-            <p>We are pleased to inform you that your registration for the ATTENDACE has been officially approved. We are excited to have you join us.</p>
+            <p>We are pleased to inform you that your registration for <strong>" . $event_name . "</strong> has been officially approved. We are excited to have you join us.</p>
             <div style='padding: 15px; background-color: rgba(255,255,255,0.05); border-radius: 10px; margin: 20px 0; border: 1px solid rgba(255,255,255,0.1);'>
                 <h3 style='margin-top:0; margin-bottom: 12px; color: #cc7b00;'>Event Details:</h3>
                 <p style='margin: 5px 0;'><strong>Date & Time:</strong> " . ($event_datetime_str ?: 'To be announced') . "</p>
@@ -524,7 +524,7 @@ function send_qr_code_email(array $attendee, array $event)
         // Create a plain-text version of the email (AltBody). This is crucial for deliverability.
         $body_plain = "
 Hi " . $attendee['full_name'] . ",\n\n" .
-"We are pleased to inform you that your registration for the INNOVED 2026 has been officially approved. We are excited to have you join us.\n\n" .
+"We are pleased to inform you that your registration for " . $event_name . " has been officially approved. We are excited to have you join us.\n\n" .
 "Event Details:\n" .
 "Date & Time: " . ($event_datetime_str ?: 'To be announced') . "\n" .
 "Venue: " . $event_venue . "\n" .
