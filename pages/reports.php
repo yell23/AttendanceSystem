@@ -89,7 +89,7 @@ $chart_checks = json_encode(array_map(function($e){ return (int)$e['checked_in']
   </div>
   <div class="stat-card green">
     <span class="stat-icon"><i class="bi bi-envelope"></i></span>
-    <div class="stat-value"><?= number_format($stats['emails_sent']) ?></div>
+    <div class="stat-value"><?= number_format($stats['emails_sent'] ?? 0) ?></div>
     <div class="stat-label">Emails Sent<?= $filter_event_id ? ' (Filtered)' : '' ?></div>
   </div>
   <div class="stat-card orange">
